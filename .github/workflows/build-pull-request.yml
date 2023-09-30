@@ -44,4 +44,4 @@ jobs:
         shell: bash
         run: godot -s .github/workflows/get_mg_scene_from_dir.gd --no-window "${{env.test}}" --audio-driver "Dummy" --verbose
         env:
-          test: steps.changed-files-yaml.outputs.all_modified_files[0]
+          test: ${{steps.changed-files-yaml.outputs.all_modified_files[0]}}
