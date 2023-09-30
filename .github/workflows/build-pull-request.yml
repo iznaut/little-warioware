@@ -7,6 +7,10 @@
 name: Build Pull Request Preview
 
 on:
+  workflow_dispatch:
+      inputs:
+        name:
+          description: "PR Number"
   pull_request:
     paths-ignore: # do not build for game-irrelvant changes
       - ".**"
