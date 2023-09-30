@@ -38,8 +38,11 @@ jobs:
         with:
           files: |
             microgames/
-      - name: Setup Godot
-        uses: lihop/setup-godot@v2
       - name: Override config to launch specific microgame
         shell: bash
-        run: godot -s .github/workflows/get_mg_scene_from_dir.gd --no-window "${{steps.changed-files-yaml.outputs.all_modified_files}}" --audio-driver "Dummy" --verbose
+        run: echo ${{steps.changed-files-yaml.outputs}}
+      # - name: Setup Godot
+      #   uses: lihop/setup-godot@v2
+      # - name: Override config to launch specific microgame
+      #   shell: bash
+      #   run: godot -s .github/workflows/get_mg_scene_from_dir.gd --no-window "${{steps.changed-files-yaml.outputs.all_modified_files}}" --audio-driver "Dummy" --verbose
