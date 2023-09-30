@@ -36,7 +36,7 @@ jobs:
         uses: lihop/setup-godot@v2
       - name: Override config to launch specific microgame
         shell: bash
-        run: godot -s .github/workflows/get_mg_scene_from_dir.gd --no-window "pixelart" --audio-driver "Dummy"
+        run: godot -s .github/workflows/get_mg_scene_from_dir.gd --no-window "pixelart" --audio-driver "Dummy" --verbose
       - name: export with Godot Engine
         uses: firebelley/godot-export@v5.0.0
         with:
