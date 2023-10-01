@@ -36,17 +36,17 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${{ steps.files.outputs.all }}."
+            echo "test={changed_file}" >> $GITHUB_OUTPUT
           done
       - uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
-          text: ${{ steps.files.outputs.all[0] }}
+          text: ${{ test }}
           regex: '/microgames\/(.+?(?=[\/]|$))/gm'
       - name: Echo regex
         run: echo ${{ steps.regex-match.outputs.group1 }}
-      - name: Echo changed files
-        run: echo ${{ steps.get_changed.outputs.changed[0] }}
+      # - name: Echo changed files
+      #   run: echo ${{ steps.get_changed.outputs.changed[0] }}
       # - name: Setup Godot
       #   uses: lihop/setup-godot@v2
       # - name: Override config to launch specific microgame
