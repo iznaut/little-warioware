@@ -36,8 +36,17 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${{ steps.files.outputs.all[0] }}."
+            echo "Do something with this ${{ steps.files.outputs.all }}."
           done
+      - uses: Stockopedia/action-get-changed-files@v1
+        id: get_changed
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ignore: "**/+(.github)"
+          foldersOnly: true 
+          format: csv
+      - name: Echo changed files
+        run: echo ${{ steps.get_changed.outputs.changed }}
       # - name: Setup Godot
       #   uses: lihop/setup-godot@v2
       # - name: Override config to launch specific microgame
