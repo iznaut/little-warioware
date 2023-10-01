@@ -7,8 +7,6 @@ onready var press_sprite: AnimatedSprite = $Instructions/AnimatedSprite
 var velocity: Vector2
 
 
-
-
 func _ready():
 	randomize()
 	velocity = Vector2(rand_range(-1, 1), rand_range(-1, 1)) * 500
