@@ -32,37 +32,14 @@ jobs:
             const path = require('path');
             const script = require(path.resolve('.github/workflows/update-credits.js'));
             await script(github, context)
-      - name: Setup Godot
-        uses: lihop/setup-godot@v2
-      - name: Override config to launch specific microgame
-        shell: bash
-        run: godot -s .github/workflows/get_mg_scene_from_dir.gd --no-window "pixelart"
-      - name: export with Godot Engine
-        uses: firebelley/godot-export@v5.0.0
-        with:
-          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_linux_headless.64.zip
-          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/3.5.1/Godot_v3.5.1-stable_export_templates.tpz
-          relative_project_path: ./
-          relative_export_path: ./export
-          archive_output: true
-          use_godot_3: true
-
-      # The next workflow needs access to the PR number to comment on it
-      # This is the best way we have to thread that through, sigh.
-      # Shoving it into HTML5 lets us upload a single artifact instead of juggling 2
-      - name: Save PR metadata
-        env:
-          PR_NUMBER: ${{ github.event.number }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_SENDER: ${{ github.event.sender.login }}
-          PR_ACTION: ${{ github.event.action }}
-        run: |
-          echo $PR_NUMBER > ./export/pr_number
-          echo $PR_TITLE > ./export/pr_title
-          echo $PR_SENDER > ./export/pr_sender
-          echo $PR_ACTION > ./export/pr_action
-
-      - uses: actions/upload-artifact@v3
-        with:
-          name: pr
-          path: export
+      - id: files
+        uses: jitterbit/get-changed-files@v1
+      - run: |
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${{ steps.files.outputs.all[0] }}."
+          done
+      # - name: Setup Godot
+      #   uses: lihop/setup-godot@v2
+      # - name: Override config to launch specific microgame
+      #   shell: bash
+      #   run: godot -s .github/workflows/get_mg_scene_from_dir.gd --no-window "${{steps.changed-files-yaml.outputs.all_modified_files}}" --audio-driver "Dummy" --verbose
