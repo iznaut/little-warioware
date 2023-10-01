@@ -36,7 +36,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
+            echo "Do something with this ${{ steps.files.outputs.all[0] }}."
           done
       # - name: Setup Godot
       #   uses: lihop/setup-godot@v2
