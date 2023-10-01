@@ -36,7 +36,7 @@ jobs:
         uses: jitterbit/get-changed-files@v1
       - run: |
           for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "TEST=${{ changed_file}}" >> $GITHUB_OUTPUT
+            echo "TEST=changed_file" >> $GITHUB_OUTPUT
           done
       - uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
